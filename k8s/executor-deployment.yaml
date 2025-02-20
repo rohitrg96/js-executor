@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-executor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-executor
+  template:
+    metadata:
+      labels:
+        app: node-executor
+    spec:
+      containers:
+        - name: node-executor
+          image: node-executor
+          imagePullPolicy: IfNotPresent # Ensures Kubernetes uses the locally loaded image
+          env:
+            - name: RABBITMQ_URL
+              value: "amqp://rabbitmq"
