@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-tester
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-tester
+  template:
+    metadata:
+      labels:
+        app: load-tester
+    spec:
+      containers:
+        - name: load-tester
+          image: load-tester:v2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000

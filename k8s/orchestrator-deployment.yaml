@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestrator-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orchestrator-api
+  template:
+    metadata:
+      labels:
+        app: orchestrator-api
+    spec:
+      serviceAccountName: orchestrator-sa # Use the new ServiceAccount
+      containers:
+        - name: orchestrator-api
+          image: orchestrator-api:v8
+          imagePullPolicy: IfNotPresent # Ensures Kubernetes uses the locally loaded image
+          ports:
+            - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestrator-api
+spec:
+  selector:
+    app: orchestrator-api
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+  type: NodePort

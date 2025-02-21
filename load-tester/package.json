@@ -1,0 +1,12 @@
+{
+  "name": "load-tester-api",
+  "version": "1.0.0",
+  "description": "A simple API to trigger Apache Benchmark (ab) for load testing.",
+  "main": "load-tester-api.js",
+  "scripts": {
+    "start": "node load-tester-api.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
