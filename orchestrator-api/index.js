@@ -25,7 +25,7 @@ async function isExecutorRunning() {
       console.log("Deployment not found, creating one...");
       return false;
     }
-    console.error("Error checking deployment:", err);
+    // console.error("Error checking deployment:", err);
     return false;
   }
 }
@@ -62,7 +62,7 @@ async function createExecutorDeployment() {
 
   try {
     await k8sApi.createNamespacedDeployment(NAMESPACE, deploymentManifest);
-    console.log("Created node-executor deployment.");
+    // console.log("Created node-executor deployment.");
   } catch (err) {
     console.error(
       "Error creating deployment:",

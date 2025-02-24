@@ -29,13 +29,17 @@ app.post("/start-test", (req, res) => {
       console.error(`Error: ${error.message}`);
       return res.status(500).json({ error: error.message });
     }
+
+    // Log stderr for debugging, but don’t treat it as an error
     if (stderr) {
-      console.error(`stderr: ${stderr}`);
-      return res.status(500).json({ error: stderr });
+      console.warn(`stderr: ${stderr}`);
     }
 
-    // Send test results
-    res.json({ message: "Load test completed", results: stdout });
+    // Return structured response
+    res.json({
+      message: "Load test completed",
+      results: stdout, // This contains the detailed Apache Benchmark output
+    });
   });
 });
 
