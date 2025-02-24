@@ -1,0 +1,40 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: node-executor-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: node-executor
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70 # Target CPU utilization percentage
+    - type: External
+      external:
+        metric:
+          name: rabbitmq_queue_length
+          selector:
+            matchLabels:
+              queue: "js-code-queue"
+        target:
+          type: AverageValue
+          averageValue: "5"
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 3600 # Wait 1 hour before scaling down
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 1800
+    scaleUp:
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 60

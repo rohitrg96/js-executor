@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: load-tester
-          image: load-tester:v2
+          image: load-tester:v3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000

@@ -15,7 +15,7 @@ spec:
       serviceAccountName: orchestrator-sa # Use the new ServiceAccount
       containers:
         - name: orchestrator-api
-          image: orchestrator-api:v8
+          image: orchestrator-api:10
           imagePullPolicy: IfNotPresent # Ensures Kubernetes uses the locally loaded image
           ports:
             - containerPort: 3001
